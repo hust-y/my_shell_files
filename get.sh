@@ -1,12 +1,18 @@
 #!/bin/bash
 
-cd /mnt/c/Users/32664/Downloads
+from_d="/mnt/c/Users/32664/Downloads"
+to_d="/mnt/d/code/py-code/cs61a"
+
+cd $from_d 
 
 if [ $# -eq 0 ]; then
-	file=$(ls | grep -E "lab|hw" | grep "*.zip" )
-	prefix=${file%%[!0-9][!0-9]*}
-	ls /mnt/c/Users/32664/Downloads | grep -E "lab|hw" | xargs mv -t /mnt/d/code/py-code/cs61a
-	cd /mnt/d/code/py-code/cs61a
-	ls | grep -E "lab|hw" | grep "\.zip" | xargs -0 unzip
-	echo "$prefix"
+	filename=$(ls | grep -E "lab|hw" | grep "\.zip$" )
+prefix=${filename%%[^a-zA-Z0-9]*}
 fi	
+
+
+echo $filename
+mv $filename $to_d
+cd $to_d
+unzip $filename
+cd $prefix
